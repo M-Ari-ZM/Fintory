@@ -14,6 +14,8 @@ export default function ExpenseChart({ data }) {
     return <p>Tidak ada data</p>;
   }
 
+  const total = data.reduce((a, b) => a + b.value, 0);
+
   return (
     <div className="flex flex-col items-center">
       <PieChart width={300} height={250}>
@@ -44,7 +46,9 @@ export default function ExpenseChart({ data }) {
               <span className="text-sm">{item.name}</span>
             </div>
 
-            <span className="text-sm font-semibold">Rp {item.value}</span>
+            <span className="text-sm font-semibold">
+              {((item.value / total) * 100).toFixed(1)}%
+            </span>
           </div>
         ))}
       </div>

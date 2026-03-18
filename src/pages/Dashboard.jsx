@@ -109,7 +109,7 @@ export default function Dashboard() {
       <Navbar />
       <div className="p-8 space-y-6">
         {/* HEADER */}
-        <div className="flex justify-between items-center">
+        <div className="sm:flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold">Dashboard</h1>
             <p className="text-gray-500">Pantau keuangan anda</p>
@@ -117,14 +117,14 @@ export default function Dashboard() {
 
           <button
             onClick={() => setShowModal(true)}
-            className="bg-blue-200 px-5 py-3 rounded-xl hover:scale-105 transition"
+            className="bg-blue-200 mt-5 w-full py-3 rounded-xl hover:scale-105 transition sm:mt-0 sm:w-fit sm:px-5"
           >
             + Tambah Transaksi
           </button>
         </div>
 
         {/* FILTER */}
-        <div className="flex gap-2 bg-gray-200 p-1 rounded-lg w-fit">
+        <div className="flex justify-self-end gap-2 bg-gray-200 p-1 rounded-lg w-fit">
           {["day", "week", "month", "year"].map((f) => (
             <button
               key={f}
@@ -145,7 +145,7 @@ export default function Dashboard() {
         <DashboardCards income={income} expense={expense} balance={balance} />
 
         {/* CONTENT */}
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6">
           {/* CHART */}
           <div className="border p-4 rounded-xl">
             <h2 className="font-bold mb-4">Rincian Pengeluaran</h2>

@@ -1,4 +1,5 @@
 import formatDate from "../utils/formatDate";
+import formatRupiah from "../utils/formatRupiah";
 
 export default function ActivityList({ transactions }) {
   const grouped = transactions.reduce((acc, t) => {
@@ -38,7 +39,7 @@ export default function ActivityList({ transactions }) {
                   t.type === "income" ? "text-green-600" : "text-red-600"
                 }
               >
-                Rp {t.amount}
+                {formatRupiah(t.amount)}
               </span>
             </div>
           ))}
