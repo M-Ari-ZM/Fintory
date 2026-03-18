@@ -1,28 +1,49 @@
+import formatDate from "../utils/formatDate";
+
 export default function ActivityList({ transactions }) {
+  const grouped = transactions.reduce((acc, t) => {
+    const dateKey = new Date(t.date).toDateString();
+
+    if (!acc[dateKey]) {
+      acc[dateKey] = [];
+    }
+
+    acc[dateKey].push(t);
+
+    return acc;
+  }, {});
+
+  const sortedDates = Object.keys(grouped).sort(
+    (a, b) => new Date(b) - new Date(a),
+  );
+
   return (
     <div className="border rounded-xl p-4">
       <h2 className="font-bold mb-3">Aktivitas Terbaru</h2>
 
-      {transactions.length === 0 && <p>Belum ada transaksi</p>}
+      {sortedDates.length === 0 && <p>Belum ada transaksi</p>}
 
-      {transactions
-        .slice(-5)
-        .reverse()
-        .map((t) => (
-          <div key={t.id} className="flex justify-between border-b py-2">
-            <span>{t.desc}</span>
+      {sortedDates.map((date) => (
+        <div key={date} className=" border-b mb-4">
+          <p className="text-sm font-semibold text-gray-500">
+            {formatDate(date)}
+          </p>
 
-            <span
-              className={
-                t.type === "income" ? "text-green-600" : "text-red-600"
-              }
-            >
-              Rp {t.amount}
-            </span>
+          {grouped[date].map((t) => (
+            <div key={t.id} className="flex justify-between py-1">
+              <span>{t.desc}</span>
 
-            <span>{t.date}</span>
-          </div>
-        ))}
+              <span
+                className={
+                  t.type === "income" ? "text-green-600" : "text-red-600"
+                }
+              >
+                Rp {t.amount}
+              </span>
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }
