@@ -1,107 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import TransactionModal from "../components/TransactionModal";
 import DashboardCards from "../components/DashboardCards";
 import ActivityList from "../components/ActivityList";
 import ExpenseChart from "../components/ExpenseChart";
+import useTransactions from "../hooks/useTransactions";
+import { filterTransactions } from "../utils/filterTransactions";
+import { calculateSummary } from "../utils/calculateSummary";
+import { generateExpenseChartData } from "../utils/expenseChart";
 
 export default function Dashboard() {
-  const [transactions, setTransactions] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [editData, setEditData] = useState(null);
   const [filter, setFilter] = useState("month");
+  const [showModal, setShowModal] = useState(false);
+  const { transactions, addTransaction, deleteTransaction, updateTransaction } =
+    useTransactions();
+  const filteredTransactions = filterTransactions(transactions, filter);
+  const { income, expense, balance } = calculateSummary(filteredTransactions);
+  const chartData = generateExpenseChartData(filteredTransactions);
 
-  // Load dari localStorage
-  useEffect(() => {
-    const data = localStorage.getItem("transactions");
-    if (data) {
-      setTransactions(JSON.parse(data));
-    }
-  }, []);
-
-  // Simpan ke localStorage
-  useEffect(() => {
-    localStorage.setItem("transactions", JSON.stringify(transactions));
-  }, [transactions]);
-
-  function addTransaction(data) {
-    const newTransaction = {
-      id: Date.now(),
-      ...data,
-    };
-
-    setTransactions((prev) => [...prev, newTransaction]);
-  }
-
-  const now = new Date();
-
-  const filteredTransactions = transactions.filter((t) => {
-    const date = new Date(t.date);
-
-    // DAY
-    if (filter === "day") {
-      return date.toDateString() === now.toDateString();
+  function handleSubmit(data) {
+    if (editData) {
+      updateTransaction(data);
+    } else {
+      addTransaction(data);
     }
 
-    // WEEK
-    if (filter === "week") {
-      const weekAgo = new Date();
-      weekAgo.setDate(now.getDate() - 7);
-      return date >= weekAgo;
-    }
-
-    // MONTH
-    if (filter === "month") {
-      return (
-        date.getMonth() === now.getMonth() &&
-        date.getFullYear() === now.getFullYear()
-      );
-    }
-
-    // YEAR
-    if (filter === "year") {
-      return date.getFullYear() === now.getFullYear();
-    }
-
-    return true;
-  });
-
-  // HITUNG TOTAL
-  const income = filteredTransactions
-    .filter((t) => t.type === "income")
-    .reduce((a, t) => a + t.amount, 0);
-
-  const expense = filteredTransactions
-    .filter((t) => t.type === "expense")
-    .reduce((a, t) => a + t.amount, 0);
-
-  const balance = income - expense;
-
-  // DATA UNTUK CHART
-  const expenseDataRaw = filteredTransactions
-    .filter((t) => t.type === "expense")
-    .reduce((acc, curr) => {
-      const existing = acc.find((i) => i.name === curr.desc);
-
-      if (existing) {
-        existing.value += curr.amount;
-      } else {
-        acc.push({ name: curr.desc, value: curr.amount });
-      }
-
-      return acc;
-    }, []);
-
-  const sortedExpenses = expenseDataRaw.sort((a, b) => b.value - a.value);
-  const topFiveExpenses = sortedExpenses.slice(0, 5);
-  const others = sortedExpenses.slice(5);
-
-  if (others.length > 0) {
-    const totalOthers = others.reduce((a, b) => a + b.value, 0);
-
-    topFiveExpenses.push({
-      name: "Lainnya",
-      value: totalOthers,
-    });
+    setEditData(null);
   }
 
   return (
@@ -151,19 +76,27 @@ export default function Dashboard() {
             <h2 className="font-bold mb-4">Rincian Pengeluaran</h2>
 
             <div className="justify-self-center">
-              <ExpenseChart data={topFiveExpenses} />
+              <ExpenseChart data={chartData} />
             </div>
           </div>
 
           {/* AKTIVITAS */}
-          <ActivityList transactions={filteredTransactions} />
+          <ActivityList
+            transactions={filteredTransactions}
+            onDelete={deleteTransaction}
+            onEdit={setEditData}
+          />
         </div>
 
         {/* MODAL */}
         <TransactionModal
-          open={showModal}
-          onClose={() => setShowModal(false)}
-          onSubmit={addTransaction}
+          open={showModal || !!editData}
+          onClose={() => {
+            setShowModal(false);
+            setEditData(null);
+          }}
+          onSubmit={handleSubmit}
+          editData={editData}
         />
       </div>
     </div>

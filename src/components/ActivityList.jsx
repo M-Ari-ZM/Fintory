@@ -1,7 +1,7 @@
 import formatDate from "../utils/formatDate";
 import formatRupiah from "../utils/formatRupiah";
 
-export default function ActivityList({ transactions }) {
+export default function ActivityList({ transactions, onDelete, onEdit }) {
   return (
     <div className="bg-white border border-gray-300 rounded-xl p-4 hover:shadow-md hover:-translate-y-1 transition">
       <h2 className="font-bold mb-3">Aktivitas Terbaru</h2>
@@ -21,7 +21,7 @@ export default function ActivityList({ transactions }) {
             }
           >
             <div>
-              <p>{t.desc}</p>
+              <p className="text-lg">{t.desc}</p>
               <p className="text-xs text-gray-500">{formatDate(t.date)}</p>
             </div>
 
@@ -34,6 +34,26 @@ export default function ActivityList({ transactions }) {
             >
               {formatRupiah(t.amount)}
             </span>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => onEdit(t)}
+                className="text-blue-500 bg-blue-200 w-18 rounded-md"
+              >
+                Edit
+              </button>
+
+              <button
+                onClick={() => {
+                  if (confirm("Yakin ingin menghapus?")) {
+                    onDelete(t.id);
+                  }
+                }}
+                className="text-red-500 bg-red-200 w-18 rounded-md"
+              >
+                Hapus
+              </button>
+            </div>
           </div>
         ))}
     </div>
