@@ -19,22 +19,21 @@ export default function ExpenseChart({ data }) {
 
   return (
     <div className="flex flex-col items-center">
-      <PieChart width={250} height={250}>
+      <PieChart width={240} height={270}>
         <Pie
           data={data}
           dataKey="value"
           nameKey="name"
-          innerRadius={40}
-          outerRadius={100}
+          innerRadius={50}
+          outerRadius={110}
         >
           <LabelList
             fill="white"
             fontWeight="bold"
             position="inside"
             valueAccessor={(_, index) => {
-              const item = data[index];
-              const percent = item.value / total;
-
+              if (!data[index]) return "";
+              const percent = data[index].value / total;
               if (percent < 0.05) return "";
 
               return `${(percent * 100).toFixed(0)}%`;
@@ -54,7 +53,7 @@ export default function ExpenseChart({ data }) {
         />
       </PieChart>
 
-      <div className="grid grid-cols-3 gap-x-10 mt-4 w-full space-y-2">
+      <div className="grid grid-cols-3 gap-x-5 mt-4 w-full space-y-2">
         {data.map((item, index) => (
           <div key={index} className="flex items-center justify-between">
             <div className="flex items-center gap-2">

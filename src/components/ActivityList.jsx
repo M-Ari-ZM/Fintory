@@ -14,28 +14,22 @@ export default function ActivityList({ transactions }) {
         .map((t) => (
           <div
             key={t.id}
-            className="flex border border-gray-300 my-3 justify-between rounded-md p-4"
+            className={
+              t.type === "income"
+                ? "flex border border-gray-300 bg-green-50 my-3 justify-between rounded-md p-4"
+                : "flex border border-gray-300 bg-red-50 my-3 justify-between rounded-md p-4"
+            }
           >
-            <div className="flex">
-              <span
-                className={
-                  t.type === "income"
-                    ? "bg-green-500 p-5 w-fit mr-5 rounded-full"
-                    : "bg-red-500 p-5 w-fit mr-5 rounded-full"
-                }
-              ></span>
-
-              <div>
-                <p>{t.desc}</p>
-                <p className="text-xs text-gray-500">{formatDate(t.date)}</p>
-              </div>
+            <div>
+              <p>{t.desc}</p>
+              <p className="text-xs text-gray-500">{formatDate(t.date)}</p>
             </div>
 
             <span
               className={
                 t.type === "income"
-                  ? "text-green-600 text-2xl font-bold"
-                  : "text-red-600 text-2xl font-bold"
+                  ? "text-green-600 sm:text-2xl font-bold"
+                  : "text-red-600 sm:text-2xl font-bold"
               }
             >
               {formatRupiah(t.amount)}
