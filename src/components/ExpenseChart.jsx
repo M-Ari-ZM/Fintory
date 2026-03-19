@@ -1,4 +1,5 @@
-import { PieChart, Pie, Cell, Tooltip } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, LabelList } from "recharts";
+import formatRupiah from "../utils/formatRupiah";
 
 export default function ExpenseChart({ data }) {
   const COLORS = [
@@ -23,18 +24,37 @@ export default function ExpenseChart({ data }) {
           data={data}
           dataKey="value"
           nameKey="name"
-          innerRadius={60}
+          innerRadius={40}
           outerRadius={100}
         >
+          <LabelList
+            fill="white"
+            fontWeight="bold"
+            position="inside"
+            valueAccessor={(_, index) => {
+              const item = data[index];
+              const percent = item.value / total;
+
+              if (percent < 0.05) return "";
+
+              return `${(percent * 100).toFixed(0)}%`;
+            }}
+          />
           {data.map((entry, index) => (
-            <Cell key={index} fill={COLORS[index % COLORS.length]} />
+            <Cell
+              key={index}
+              fill={COLORS[index % COLORS.length]}
+              className="hover:grayscale cursor-pointer"
+            />
           ))}
         </Pie>
 
-        <Tooltip />
+        <Tooltip
+          formatter={(value, name) => [`${formatRupiah(value)}`, name]}
+        />
       </PieChart>
 
-      <div className="grid sm:grid-cols-2 sm:gap-x-20 mt-4 w-full space-y-2">
+      <div className="grid sm:grid-cols-2 sm:gap-x-20 mt-4 w-75 space-y-2">
         {data.map((item, index) => (
           <div key={index} className="flex items-center justify-between">
             <div className="flex items-center gap-2">
