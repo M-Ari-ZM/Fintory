@@ -34,7 +34,7 @@ export default function Hero() {
       <img
         src={bgHeader}
         alt="finance"
-        className="min-w-screen min-h-screen object-cover -mt-150"
+        className="min-w-screen min-h-screen object-cover -mt-100"
       />
     </section>
   );
