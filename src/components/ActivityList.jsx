@@ -1,3 +1,4 @@
+import { Pencil, Trash } from "lucide-react";
 import formatDate from "../utils/formatDate";
 import formatRupiah from "../utils/formatRupiah";
 
@@ -38,12 +39,12 @@ export default function ActivityList({ transactions, onDelete, onEdit }) {
               </span>
             </div>
 
-            <div className="flex gap-2 justify-end sm:mt-0">
+            <div className="flex gap-2 justify-end mt-2 sm:mt-0">
               <button
                 onClick={() => onEdit(t)}
-                className="text-blue-500 bg-blue-200 w-18 h-11 rounded-md"
+                className="text-blue-500 justify-items-center bg-blue-200 w-11 h-11 rounded-md"
               >
-                Edit
+                <Pencil />
               </button>
 
               <button
@@ -52,9 +53,9 @@ export default function ActivityList({ transactions, onDelete, onEdit }) {
                     onDelete(t.id);
                   }
                 }}
-                className="text-red-500 bg-red-200 w-18 h-11 rounded-md"
+                className="text-red-500 justify-items-center bg-red-200 w-11 h-11 rounded-md"
               >
-                Hapus
+                <Trash />
               </button>
             </div>
           </div>

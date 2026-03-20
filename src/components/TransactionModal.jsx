@@ -17,8 +17,20 @@ export default function TransactionModal({
       setAmount(editData.amount);
       setDesc(editData.desc);
       setDate(new Date(editData.date).toISOString().split("T")[0]);
+    } else {
+      setType("");
+      setAmount("");
+      setDesc("");
+      setDate("");
     }
   }, [editData]);
+
+  useEffect(() => {
+    if (open && !editData) {
+      setType("income");
+      setDate(new Date().toISOString().split("T")[0]);
+    }
+  }, [open, editData]);
 
   if (!open) return null;
 
@@ -44,9 +56,13 @@ export default function TransactionModal({
   return (
     <div className="fixed inset-0 bg-black/40 flex justify-center items-center">
       <div className="bg-white p-6 rounded-2xl w-150">
-        <h2 className="text-xl font-bold">Tambah Transaksi</h2>
+        <h2 className="text-xl font-bold">
+          {editData ? "Edit Transaksi" : "Tambah Transaksi"}
+        </h2>
         <p className="mb-4 text-sm text-gray-500">
-          Catat transaksi pemasukan atau pengeluaran baru
+          {editData
+            ? "Ubah transaksi pemasukan atau pengeluaran yang ada"
+            : "Catat transaksi pemasukan atau pengeluaran baru"}
         </p>
 
         <form onSubmit={submit} className="space-y-4">
@@ -56,7 +72,7 @@ export default function TransactionModal({
               onClick={() => setType("income")}
               className={
                 type === "income"
-                  ? "text-black bg-white w-full py-1 rounded-md transition"
+                  ? "text-black bg-white w-full shadow py-1 rounded-md transition"
                   : "w-full transition"
               }
             >
@@ -68,7 +84,7 @@ export default function TransactionModal({
               onClick={() => setType("expense")}
               className={
                 type === "expense"
-                  ? "text-black bg-white w-full py-1 rounded-md transition"
+                  ? "text-black bg-white w-full shadow py-1 rounded-md transition"
                   : "w-full transition"
               }
             >

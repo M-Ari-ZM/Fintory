@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BadgePlus } from "lucide-react";
 import Navbar from "../components/Navbar";
 import TransactionModal from "../components/TransactionModal";
 import DashboardCards from "../components/DashboardCards";
@@ -43,10 +44,12 @@ export default function Dashboard() {
           </div>
 
           <button
-            onClick={() => setShowModal(true)}
-            className="bg-blue-200 mt-5 w-full py-3 rounded-xl hover:scale-105 transition sm:mt-0 sm:w-fit sm:px-5"
+            onClick={() => {
+              (setShowModal(true), setEditData(null));
+            }}
+            className="flex items-center gap-2 bg-blue-200 mt-5 w-full py-3 rounded-xl hover:scale-105 transition sm:mt-0 sm:w-fit sm:px-5"
           >
-            + Tambah Transaksi
+            <BadgePlus color="#000000" /> Tambah Transaksi
           </button>
         </div>
 

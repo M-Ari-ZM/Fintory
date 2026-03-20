@@ -1,4 +1,12 @@
 import { useState } from "react";
+import {
+  Pencil,
+  Trash,
+  Search,
+  SlidersHorizontal,
+  ArrowUpWideNarrow,
+  RotateCcw,
+} from "lucide-react";
 import formatDate from "../utils/formatDate";
 import formatRupiah from "../utils/formatRupiah";
 
@@ -57,98 +65,110 @@ export default function TransactionList({ transactions, onDelete, onEdit }) {
           {isFiltered && (
             <button
               onClick={handleReset}
-              className="bg-gray-100 text-red-600 border border-gray-300 p-2 rounded-md"
+              className="bg-gray-100 text-red-600 border border-red-300 p-2 rounded-md"
             >
-              Reset
+              <RotateCcw />
             </button>
           )}
 
-          <select
-            value={typeFilter}
-            onChange={(e) => setTypeFilter(e.target.value)}
-            className="bg-gray-100 border border-gray-300 p-2 w-full rounded-md appearance-none"
-          >
-            <option value="all">Semua</option>
-            <option value="income">Pemasukan</option>
-            <option value="expense">Pengeluaran</option>
-          </select>
+          <div className="relative w-full">
+            <SlidersHorizontal
+              className="absolute left-3 top-3/10 text-gray-400"
+              size={16}
+            />
+            <select
+              value={typeFilter}
+              onChange={(e) => setTypeFilter(e.target.value)}
+              className="bg-gray-100 border border-gray-300 p-2 pl-9 w-full rounded-md appearance-none"
+            >
+              <option value="all">Semua</option>
+              <option value="income">Pemasukan</option>
+              <option value="expense">Pengeluaran</option>
+            </select>
+          </div>
 
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="bg-gray-100 border border-gray-300 p-2 w-full rounded-md appearance-none"
-          >
-            <option value="latest">Terbaru</option>
-            <option value="oldest">Terlama</option>
-            <option value="highest">Jumlah Tertinggi</option>
-            <option value="lowest">Jumlah Terendah</option>
-          </select>
+          <div className="relative w-full">
+            <ArrowUpWideNarrow
+              className="absolute left-3 top-3/10 text-gray-400"
+              size={16}
+            />
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="bg-gray-100 border border-gray-300 p-2 pl-9 w-full rounded-md appearance-none"
+            >
+              <option value="latest">Terbaru</option>
+              <option value="oldest">Terlama</option>
+              <option value="highest">Jumlah Tertinggi</option>
+              <option value="lowest">Jumlah Terendah</option>
+            </select>
+          </div>
         </div>
       </div>
 
       {/* SEARCH */}
-      <input
-        type="text"
-        placeholder="Cari transaksi..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="w-full bg-gray-100 border border-gray-300 p-2 pl-3 rounded-md"
-      />
+      <div className="relative">
+        <Search className="absolute left-3 top-3/10 text-gray-400" size={16} />
+        <input
+          type="text"
+          placeholder="Cari transaksi..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full bg-gray-100 border border-gray-300 p-2 pl-9 rounded-md"
+        />
+      </div>
 
-      <div className="space-y-3">
+      <div className="max-h-113 space-y-3 overflow-y-scroll">
         {filtered.length === 0 && (
           <p className="text-center">Belum ada transaksi</p>
         )}
 
-        {filtered
-          .slice(-5)
-          .reverse()
-          .map((t) => (
-            <div
-              key={t.id}
-              className={
-                t.type === "income"
-                  ? "sm:flex border border-gray-300 bg-green-50 my-3 justify-between rounded-md p-4"
-                  : "sm:flex border border-gray-300 bg-red-50 my-3 justify-between rounded-md p-4"
-              }
-            >
-              <div className="flex justify-between sm:justify-between w-full  sm:mr-4 sm:pr-3 sm:border-r-2 sm:border-gray-300">
-                <div>
-                  <p className="text-lg">{t.desc}</p>
-                  <p className="text-xs text-gray-500">{formatDate(t.date)}</p>
-                </div>
-                <span
-                  className={
-                    t.type === "income"
-                      ? "text-green-600 text-lg sm:text-2xl font-bold"
-                      : "text-red-600 text-lg sm:text-2xl font-bold"
-                  }
-                >
-                  {formatRupiah(t.amount)}
-                </span>
+        {filtered.reverse().map((t) => (
+          <div
+            key={t.id}
+            className={
+              t.type === "income"
+                ? "sm:flex border border-gray-300 bg-green-50 my-3 justify-between rounded-md p-4"
+                : "sm:flex border border-gray-300 bg-red-50 my-3 justify-between rounded-md p-4"
+            }
+          >
+            <div className="flex justify-between sm:justify-between w-full  sm:mr-4 sm:pr-3 sm:border-r-2 sm:border-gray-300">
+              <div>
+                <p className="text-lg">{t.desc}</p>
+                <p className="text-xs text-gray-500">{formatDate(t.date)}</p>
               </div>
-
-              <div className="flex gap-2 justify-end mt-2 sm:mt-0">
-                <button
-                  onClick={() => onEdit(t)}
-                  className="text-blue-500 bg-blue-200 w-18 h-11 rounded-md"
-                >
-                  Edit
-                </button>
-
-                <button
-                  onClick={() => {
-                    if (confirm("Yakin ingin menghapus?")) {
-                      onDelete(t.id);
-                    }
-                  }}
-                  className="text-red-500 bg-red-200 w-18 h-11 rounded-md"
-                >
-                  Hapus
-                </button>
-              </div>
+              <span
+                className={
+                  t.type === "income"
+                    ? "text-green-600 text-lg sm:text-2xl font-bold"
+                    : "text-red-600 text-lg sm:text-2xl font-bold"
+                }
+              >
+                {formatRupiah(t.amount)}
+              </span>
             </div>
-          ))}
+
+            <div className="flex gap-2 justify-end mt-2 sm:mt-0">
+              <button
+                onClick={() => onEdit(t)}
+                className="text-blue-500 justify-items-center bg-blue-200 w-11 h-11 rounded-md"
+              >
+                <Pencil />
+              </button>
+
+              <button
+                onClick={() => {
+                  if (confirm("Yakin ingin menghapus?")) {
+                    onDelete(t.id);
+                  }
+                }}
+                className="text-red-500 justify-items-center bg-red-200 w-11 h-11 rounded-md"
+              >
+                <Trash />
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
