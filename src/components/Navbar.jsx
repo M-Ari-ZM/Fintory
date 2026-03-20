@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Fintory from "../../public/Fintory(W).png";
+import Fintory from "../assets/img/Fintory(W).png";
 
 export default function Navbar() {
   return (

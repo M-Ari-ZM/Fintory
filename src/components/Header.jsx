@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import bgHeader from "../assets/img/bg-header.webp";
-import Fintory from "../../public/Fintory(W).png";
+import Fintory from "../assets/img/Fintory(W).png";
 
 export default function Hero() {
   const navigate = useNavigate();
