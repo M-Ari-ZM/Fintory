@@ -22,19 +22,19 @@ export default function TransactionList({ transactions, onDelete, onEdit }) {
   //   SORT
   filtered.sort((a, b) => {
     if (sortBy === "latest") {
-      return new Date(b.date) - new Date(a.date);
-    }
-
-    if (sortBy === "oldest") {
       return new Date(a.date) - new Date(b.date);
     }
 
+    if (sortBy === "oldest") {
+      return new Date(b.date) - new Date(a.date);
+    }
+
     if (sortBy === "highest") {
-      return b.amount - a.amount;
+      return a.amount - b.amount;
     }
 
     if (sortBy === "lowest") {
-      return a.amount - b.amount;
+      return b.amount - a.amount;
     }
 
     return 0;
@@ -49,11 +49,11 @@ export default function TransactionList({ transactions, onDelete, onEdit }) {
 
   return (
     <div className="bg-white border border-gray-300 rounded-xl p-4 hover:shadow-md hover:-translate-y-1 transition space-y-2">
-      <div className="flex justify-between">
+      <div className="sm:flex sm:justify-between">
         <h2 className="font-bold mb-3">Transaksi</h2>
 
         {/* FILTER */}
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-2 flex-wrap justify-end">
           {isFiltered && (
             <button
               onClick={handleReset}
