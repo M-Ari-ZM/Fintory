@@ -3,7 +3,9 @@ import Navbar from "../components/Navbar";
 import TransactionModal from "../components/TransactionModal";
 import DashboardCards from "../components/DashboardCards";
 import ActivityList from "../components/ActivityList";
+import TransactionList from "../components/TransactionList";
 import ExpenseChart from "../components/ExpenseChart";
+import Footer from "../components/Footer";
 import useTransactions from "../hooks/useTransactions";
 import { filterTransactions } from "../utils/filterTransactions";
 import { calculateSummary } from "../utils/calculateSummary";
@@ -88,6 +90,8 @@ export default function Dashboard() {
           />
         </div>
 
+        <TransactionList transactions={filteredTransactions} />
+
         {/* MODAL */}
         <TransactionModal
           open={showModal || !!editData}
@@ -99,6 +103,9 @@ export default function Dashboard() {
           editData={editData}
         />
       </div>
+
+      {/* FOOTER */}
+      <Footer />
     </div>
   );
 }

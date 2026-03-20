@@ -9,12 +9,20 @@ export default function TransactionModal({
   const [type, setType] = useState("income");
   const [amount, setAmount] = useState("");
   const [desc, setDesc] = useState("");
+  const [date, setDate] = useState("");
 
   useEffect(() => {
     if (editData) {
       setType(editData.type);
       setAmount(editData.amount);
       setDesc(editData.desc);
+      setDate(new Date(editData.date).toISOString().split("T")[0]);
+    }
+  }, [editData]);
+
+  useEffect(() => {
+    if (!editData) {
+      setDate(new Date().toISOString().split("T")[0]);
     }
   }, [editData]);
 
@@ -28,27 +36,35 @@ export default function TransactionModal({
       type,
       amount: Number(amount),
       desc,
-      date: editData?.date || new Date(),
+      date: date ? new Date(date) : new Date(),
     };
     onSubmit(data);
 
     setAmount("");
     setDesc("");
+    setDate("");
 
     onClose();
   }
 
   return (
     <div className="fixed inset-0 bg-black/40 flex justify-center items-center">
-      <div className="bg-white p-6 rounded-2xl w-100">
-        <h2 className="text-xl font-bold mb-4">Tambah Transaksi</h2>
+      <div className="bg-white p-6 rounded-2xl w-150">
+        <h2 className="text-xl font-bold">Tambah Transaksi</h2>
+        <p className="mb-4 text-sm text-gray-500">
+          Catat transaksi pemasukan atau pengeluaran baru
+        </p>
 
         <form onSubmit={submit} className="space-y-4">
-          <div className="flex gap-2">
+          <div className="flex gap-5 justify-center bg-gray-200 p-1 rounded-md text-gray-500">
             <button
               type="button"
               onClick={() => setType("income")}
-              className={type === "income" ? "font-bold" : ""}
+              className={
+                type === "income"
+                  ? "text-black bg-white w-full py-1 rounded-md transition"
+                  : "w-full transition"
+              }
             >
               Pemasukan
             </button>
@@ -56,26 +72,61 @@ export default function TransactionModal({
             <button
               type="button"
               onClick={() => setType("expense")}
-              className={type === "expense" ? "font-bold" : ""}
+              className={
+                type === "expense"
+                  ? "text-black bg-white w-full py-1 rounded-md transition"
+                  : "w-full transition"
+              }
             >
               Pengeluaran
             </button>
           </div>
 
-          <input
-            type="number"
-            placeholder="Jumlah"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="w-full border p-2 rounded"
-          />
+          <legend className="relative">
+            <label>Jumlah</label>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+              Rp
+            </span>
+            <input
+              type="number"
+              placeholder="0,00"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              className="w-full bg-gray-200 border border-gray-300 p-2 pl-9 pr-3 rounded-md"
+              required
+            />
+            <span className="text-sm text-gray-500">
+              Masukkan jumlah transaksi
+            </span>
+          </legend>
 
-          <input
-            placeholder="Deskripsi"
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
-            className="w-full border p-2 rounded"
-          />
+          <legend>
+            <label>Deskripsi</label>
+            <input
+              placeholder="contoh: Kopi, Gaji, Belanja"
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+              className="w-full bg-gray-200 border border-gray-300 p-2 px-3 rounded-md"
+              required
+            />
+            <span className="text-sm text-gray-500">
+              Deskripsi singkat tentang transaksi
+            </span>
+          </legend>
+
+          <legend>
+            <label>Tanggal</label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-full bg-gray-200 border border-gray-300 p-2 px-3 rounded-md"
+              required
+            />
+            <span className="text-sm text-gray-500">
+              Kapan transaksi ini terjadi?
+            </span>
+          </legend>
 
           <div className="flex justify-end gap-2">
             <button

@@ -34,8 +34,12 @@ export default function Hero() {
       <img
         src={bgHeader}
         alt="finance"
-        className="min-w-screen min-h-screen object-cover -mt-100"
+        className="w-full min-h-screen object-cover -mt-100"
       />
+
+      <footer className="p-4 w-full text-white text-center z-10 absolute bottom-0 font-bold">
+        © 2026 | Fintory by CC26-PS063
+      </footer>
     </section>
   );
 }
