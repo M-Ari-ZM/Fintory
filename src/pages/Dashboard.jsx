@@ -90,7 +90,11 @@ export default function Dashboard() {
           />
         </div>
 
-        <TransactionList transactions={filteredTransactions} />
+        <TransactionList
+          transactions={filteredTransactions}
+          onDelete={deleteTransaction}
+          onEdit={setEditData}
+        />
 
         {/* MODAL */}
         <TransactionModal

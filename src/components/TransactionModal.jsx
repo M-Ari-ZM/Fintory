@@ -20,12 +20,6 @@ export default function TransactionModal({
     }
   }, [editData]);
 
-  useEffect(() => {
-    if (!editData) {
-      setDate(new Date().toISOString().split("T")[0]);
-    }
-  }, [editData]);
-
   if (!open) return null;
 
   function submit(e) {
@@ -36,7 +30,7 @@ export default function TransactionModal({
       type,
       amount: Number(amount),
       desc,
-      date: date ? new Date(date) : new Date(),
+      date: editData?.date || new Date(),
     };
     onSubmit(data);
 
@@ -56,7 +50,7 @@ export default function TransactionModal({
         </p>
 
         <form onSubmit={submit} className="space-y-4">
-          <div className="flex gap-5 justify-center bg-gray-200 p-1 rounded-md text-gray-500">
+          <div className="flex gap-5 justify-center bg-gray-100 p-1 rounded-md text-gray-500">
             <button
               type="button"
               onClick={() => setType("income")}
@@ -92,7 +86,7 @@ export default function TransactionModal({
               placeholder="0,00"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="w-full bg-gray-200 border border-gray-300 p-2 pl-9 pr-3 rounded-md"
+              className="w-full bg-gray-100 border border-gray-300 p-2 pl-9 pr-3 rounded-md"
               required
             />
             <span className="text-sm text-gray-500">
@@ -106,7 +100,7 @@ export default function TransactionModal({
               placeholder="contoh: Kopi, Gaji, Belanja"
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
-              className="w-full bg-gray-200 border border-gray-300 p-2 px-3 rounded-md"
+              className="w-full bg-gray-100 border border-gray-300 p-2 px-3 rounded-md"
               required
             />
             <span className="text-sm text-gray-500">
@@ -120,7 +114,7 @@ export default function TransactionModal({
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full bg-gray-200 border border-gray-300 p-2 px-3 rounded-md"
+              className="w-full bg-gray-100 border border-gray-300 p-2 px-3 rounded-md"
               required
             />
             <span className="text-sm text-gray-500">
@@ -132,7 +126,7 @@ export default function TransactionModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-3 py-2 bg-gray-200 rounded"
+              className="px-3 py-2 bg-gray-100 rounded"
             >
               Batal
             </button>
