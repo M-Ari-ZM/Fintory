@@ -53,11 +53,11 @@ export default function TransactionList({ transactions, onDelete, onEdit }) {
         <h2 className="font-bold mb-3">Transaksi</h2>
 
         {/* FILTER */}
-        <div className="flex gap-2 flex-wrap justify-end">
+        <div className="flex gap-2">
           {isFiltered && (
             <button
               onClick={handleReset}
-              className="bg-gray-100 border border-gray-300 p-2 rounded-md"
+              className="bg-gray-100 text-red-600 border border-gray-300 p-2 rounded-md"
             >
               Reset
             </button>
@@ -66,7 +66,7 @@ export default function TransactionList({ transactions, onDelete, onEdit }) {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="bg-gray-100 border border-gray-300 p-2 rounded-md appearance-none"
+            className="bg-gray-100 border border-gray-300 p-2 w-full rounded-md appearance-none"
           >
             <option value="all">Semua</option>
             <option value="income">Pemasukan</option>
@@ -76,7 +76,7 @@ export default function TransactionList({ transactions, onDelete, onEdit }) {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="bg-gray-100 border border-gray-300 p-2 rounded-md appearance-none"
+            className="bg-gray-100 border border-gray-300 p-2 w-full rounded-md appearance-none"
           >
             <option value="latest">Terbaru</option>
             <option value="oldest">Terlama</option>
@@ -128,7 +128,7 @@ export default function TransactionList({ transactions, onDelete, onEdit }) {
                 </span>
               </div>
 
-              <div className="flex gap-2 justify-end">
+              <div className="flex gap-2 justify-end mt-2 sm:mt-0">
                 <button
                   onClick={() => onEdit(t)}
                   className="text-blue-500 bg-blue-200 w-18 h-11 rounded-md"

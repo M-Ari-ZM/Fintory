@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import bgHeader from "../assets/img/bg-header.png";
+import bgHeader from "../assets/img/bg-header.webp";
 
 export default function Hero() {
   const navigate = useNavigate();

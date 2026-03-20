@@ -38,7 +38,7 @@ export default function ActivityList({ transactions, onDelete, onEdit }) {
               </span>
             </div>
 
-            <div className="flex gap-2 justify-end">
+            <div className="flex gap-2 justify-end sm:mt-0">
               <button
                 onClick={() => onEdit(t)}
                 className="text-blue-500 bg-blue-200 w-18 h-11 rounded-md"
