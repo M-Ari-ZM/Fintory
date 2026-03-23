@@ -16,7 +16,7 @@ export default function TransactionModal({
       setType(editData.type);
       setAmount(editData.amount);
       setDesc(editData.desc);
-      setDate(new Date(editData.date).toISOString().split("T")[0]);
+      setDate(editData.date.slice(0, 10));
     } else {
       setType("");
       setAmount("");
@@ -42,7 +42,7 @@ export default function TransactionModal({
       type,
       amount: Number(amount),
       desc,
-      date: editData?.date || new Date(),
+      date: date,
     };
     onSubmit(data);
 
