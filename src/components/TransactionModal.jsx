@@ -54,7 +54,7 @@ export default function TransactionModal({
   }
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex justify-center items-center">
+    <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-100">
       <div className="bg-white p-6 rounded-2xl w-150">
         <h2 className="text-xl font-bold">
           {editData ? "Edit Transaksi" : "Tambah Transaksi"}

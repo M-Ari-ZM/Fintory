@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Pencil,
   Trash,
@@ -7,52 +6,25 @@ import {
   ArrowUpWideNarrow,
   RotateCcw,
 } from "lucide-react";
+import useLogicList from "../hooks/useLogicList";
 import List from "./ui/List";
+import SearchInput from "./ui/SearchInput";
+import ResetButton from "./ui/ResetButton";
+import FilterSelect from "./ui/FilterSelect";
+import SortSelect from "./ui/SortSelect";
 
 export default function TransactionList({ transactions, onDelete, onEdit }) {
-  const [search, setSearch] = useState("");
-  const [typeFilter, setTypeFilter] = useState("all");
-  const [sortBy, setSortBy] = useState("latest");
-
-  let filtered = [...transactions];
-
-  //   SEARCH
-  filtered = filtered.filter((t) =>
-    t.desc.toLowerCase().includes(search.toLowerCase()),
-  );
-
-  //   FILTER
-  if (typeFilter !== "all") {
-    filtered = filtered.filter((t) => t.type === typeFilter);
-  }
-
-  //   SORT
-  filtered.sort((a, b) => {
-    if (sortBy === "latest") {
-      return new Date(a.date) - new Date(b.date);
-    }
-
-    if (sortBy === "oldest") {
-      return new Date(b.date) - new Date(a.date);
-    }
-
-    if (sortBy === "highest") {
-      return a.amount - b.amount;
-    }
-
-    if (sortBy === "lowest") {
-      return b.amount - a.amount;
-    }
-
-    return 0;
-  });
-
-  const isFiltered = typeFilter !== "all" || sortBy !== "latest";
-
-  function handleReset() {
-    setTypeFilter("all");
-    setSortBy("latest");
-  }
+  const {
+    search,
+    setSearch,
+    typeFilter,
+    setTypeFilter,
+    sortBy,
+    setSortBy,
+    filteredTransactions,
+    isFiltered,
+    handleReset,
+  } = useLogicList(transactions);
 
   return (
     <div className="bg-white border border-gray-300 rounded-xl p-4 hover:shadow-md hover:-translate-y-1 transition space-y-2">
@@ -61,67 +33,22 @@ export default function TransactionList({ transactions, onDelete, onEdit }) {
 
         {/* FILTER */}
         <div className="flex gap-2">
-          {isFiltered && (
-            <button
-              onClick={handleReset}
-              className="bg-gray-100 text-red-600 border border-red-300 p-2 rounded-md"
-            >
-              <RotateCcw />
-            </button>
-          )}
+          {isFiltered && <ResetButton onClick={handleReset} />}
 
-          <div className="relative w-full">
-            <SlidersHorizontal
-              className="absolute left-3 top-3/10 text-gray-400"
-              size={16}
-            />
-            <select
-              value={typeFilter}
-              onChange={(e) => setTypeFilter(e.target.value)}
-              className="bg-gray-100 border border-gray-300 p-2 pl-9 w-full rounded-md appearance-none"
-            >
-              <option value="all">Semua</option>
-              <option value="income">Pemasukan</option>
-              <option value="expense">Pengeluaran</option>
-            </select>
-          </div>
+          <FilterSelect value={typeFilter} onChange={setTypeFilter} />
 
-          <div className="relative w-full">
-            <ArrowUpWideNarrow
-              className="absolute left-3 top-3/10 text-gray-400"
-              size={16}
-            />
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="bg-gray-100 border border-gray-300 p-2 pl-9 w-full rounded-md appearance-none"
-            >
-              <option value="latest">Terbaru</option>
-              <option value="oldest">Terlama</option>
-              <option value="highest">Jumlah Tertinggi</option>
-              <option value="lowest">Jumlah Terendah</option>
-            </select>
-          </div>
+          <SortSelect value={sortBy} onChange={setSortBy} />
         </div>
       </div>
 
       {/* SEARCH */}
-      <div className="relative">
-        <Search className="absolute left-3 top-3/10 text-gray-400" size={16} />
-        <input
-          type="text"
-          placeholder="Cari transaksi..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full bg-gray-100 border border-gray-300 p-2 pl-9 rounded-md"
-        />
-      </div>
+      <SearchInput value={search} onChange={setSearch} />
 
       <div className="max-h-113 space-y-3 overflow-y-scroll">
-        {filtered.length === 0 ? (
+        {filteredTransactions.length === 0 ? (
           <p className="text-center">Belum ada transaksi</p>
         ) : (
-          filtered
+          filteredTransactions
             .reverse()
             .map((t) => (
               <List

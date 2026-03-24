@@ -10,7 +10,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sm:flex sticky top-0 w-full justify-items-center sm:justify-between bg-main text-white px-6 py-4 shadow z-100">
+    <header className="sm:flex sticky top-0 w-full justify-items-center sm:justify-between bg-main text-white px-6 py-4 shadow z-50">
       <span
         className="flex items-center gap-1 cursor-pointer"
         onClick={scrollToTop}
