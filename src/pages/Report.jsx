@@ -45,31 +45,31 @@ export default function Dashboard() {
         />
 
         {/* CONTENT */}
-        <div className="gap-2 bg-gray-200 p-1 rounded-lg w-fit">
-          <button
-            onClick={() => setChartType("bar")}
-            className={`px-3 py-1 rounded ${
-              chartType === "bar"
-                ? "bg-white shadow transition"
-                : "text-gray-500"
-            }`}
-          >
-            Bulanan
-          </button>
-
-          <button
-            onClick={() => setChartType("pie")}
-            className={`px-3 py-1 rounded ${
-              chartType === "pie"
-                ? "bg-white shadow transition"
-                : "text-gray-500"
-            }`}
-          >
-            Kategori
-          </button>
-        </div>
-
         <div className="bg-white border border-gray-300 p-4 rounded-xl hover:shadow-md hover:-translate-y-1 transition">
+          <div className="gap-2 bg-gray-200 p-1 rounded-lg w-fit mb-5">
+            <button
+              onClick={() => setChartType("bar")}
+              className={`px-3 py-1 rounded ${
+                chartType === "bar"
+                  ? "bg-white shadow transition"
+                  : "text-gray-500"
+              }`}
+            >
+              Bulanan
+            </button>
+
+            <button
+              onClick={() => setChartType("pie")}
+              className={`px-3 py-1 rounded ${
+                chartType === "pie"
+                  ? "bg-white shadow transition"
+                  : "text-gray-500"
+              }`}
+            >
+              Kategori
+            </button>
+          </div>
+
           {/* CHART */}
           {chartType === "bar" ? (
             <div>

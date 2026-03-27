@@ -1,7 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Fintory from "../assets/img/Fintory(W).webp";
 
 export default function Navbar() {
+  const navItems = [
+    { name: "Beranda", path: "/home" },
+    { name: "Laporan", path: "/report" },
+    { name: "Tentang kami", path: "/about" },
+  ];
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -19,25 +25,20 @@ export default function Navbar() {
         <h1 className="text-2xl font-semibold">Fintory</h1>
       </span>
 
-      <nav className="mt-3 sm:mt-1">
-        <Link
-          to="/home"
-          className="mr-5 sm:mx-5 hover:border-b-2 hover:border-white hover:transition duration-100"
-        >
-          Beranda
-        </Link>
-        <Link
-          to="/report"
-          className="mr-5 sm:mx-5 hover:border-b-2 hover:border-white hover:transition duration-100"
-        >
-          Laporan
-        </Link>
-        <Link
-          to="/about"
-          className=" sm:mx-5 hover:border-b-2 hover:border-white hover:transition duration-100"
-        >
-          Tentang kami
-        </Link>
+      <nav className="flex gap-4 mt-3 sm:mt-1">
+        {navItems.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            className={({ isActive }) =>
+              isActive
+                ? "border-b-2 border-white -translate-y-1"
+                : "hover:border-b-2 hover:border-white hover:transition duration-100 hover:-translate-y-1"
+            }
+          >
+            {item.name}
+          </NavLink>
+        ))}
       </nav>
     </header>
   );
