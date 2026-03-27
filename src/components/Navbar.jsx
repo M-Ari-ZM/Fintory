@@ -33,7 +33,7 @@ export default function Navbar() {
             className={({ isActive }) =>
               isActive
                 ? "border-b-2 border-white -translate-y-1"
-                : "hover:border-b-2 hover:border-white hover:transition hover:-translate-y-1 active:border-white active:transition active:-translate-y-1 duration-100"
+                : "hover:border-b-2 hover:border-white hover:transition hover:-translate-y-1 duration-100"
             }
           >
             {item.name}

@@ -19,7 +19,7 @@ export default function TeamCards() {
       {members.map((item) => (
         <div
           key={item.path}
-          className="bg-[#DCEEFF] sm:bg-gray-50 hover:bg-[#DCEEFF] active:bg-[#DCEEFF] p-5 min-w-60 justify-items-center rounded-md snap-center hover:shadow-md hover:-translate-y-1 transition"
+          className="bg-[#DCEEFF] sm:bg-gray-50 hover:bg-[#DCEEFF] p-5 min-w-60 justify-items-center rounded-md snap-center hover:shadow-md hover:-translate-y-1 transition"
         >
           <img src={item.path} alt={item.name} width={200} className="my-5" />
           <h3 className="font-bold">{item.name}</h3>
