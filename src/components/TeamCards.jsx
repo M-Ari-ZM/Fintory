@@ -14,17 +14,15 @@ export default function TeamCards() {
   ];
 
   return (
-    <div className="flex sm:flex-wrap gap-10 sm:gap-20 sm:justify-center overflow-x-auto sm:overflow-hidden no-scrollbar snap-x snap-mandatory px-50 sm:px-0 py-5">
+    <div className="flex sm:flex-wrap gap-10 sm:gap-20 sm:justify-center overflow-x-auto sm:overflow-x-hidden no-scrollbar snap-x snap-mandatory px-50 sm:px-0 py-5">
       {members.map((item) => (
         <div
           key={item.path}
           className="bg-[#DCEEFF] p-5 min-w-60 justify-items-center rounded-md snap-center hover:shadow-md hover:-translate-y-1 transition"
         >
           <img src={item.path} alt="" width={200} className="my-5" />
-          <div className="text-center">
-            <h3 className="font-bold">{item.name}</h3>
-            <p className="text-gray-500">{item.position}</p>
-          </div>
+          <h3 className="font-bold">{item.name}</h3>
+          <p className="text-gray-500">{item.position}</p>
         </div>
       ))}
     </div>
