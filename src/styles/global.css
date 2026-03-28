@@ -3,6 +3,7 @@
 @theme {
   --color-main: #15495a;
   --color-second: #1c576b;
+  --color-primary: #dceeff;
 }
 
 .no-scrollbar::-webkit-scrollbar {
