@@ -20,13 +20,7 @@ export default function ActionCard() {
         className="bg-main mt-10 w-25 h-25 justify-items-center rounded-full hover:scale-110 hover:rotate-360 active:scale-110 active:rotate-360 transition duration-500"
         onClick={dashboardBtn}
       >
-        <img
-          src={Fintory}
-          width={50}
-          alt="Fintory"
-          draggable="false"
-          className="touch-none select-none"
-        />
+        <img src={Fintory} width={50} alt="Fintory" />
       </button>
     </div>
   );
