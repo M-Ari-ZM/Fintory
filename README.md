@@ -15,7 +15,7 @@ Ikuti langkah-langkah berikut untuk menjalankan project di lokal:
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/username/fintory.git
+git clone https://github.com/M-Ari-ZM/Fintory.git
 cd fintory
 ```
 
