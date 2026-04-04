@@ -5,7 +5,7 @@ export default function Navbar() {
   const navItems = [
     { name: "Beranda", path: "/home" },
     { name: "Laporan", path: "/report" },
-    { name: "Tentang kami", path: "/about" },
+    { name: "Tentang Kami", path: "/about" },
   ];
 
   const scrollToTop = () => {
