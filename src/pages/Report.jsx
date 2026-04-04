@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 import Navbar from "../components/Navbar";
 import DashboardCards from "../components/DashboardCards";
 import FilterByTimeSelect from "../components/ui/FilterByTimeSelect";
@@ -25,6 +26,10 @@ export default function Dashboard() {
 
   return (
     <div className="bg-gray-50">
+      <Helmet>
+        <title>Laporan • Fintory</title>
+      </Helmet>
+
       <Navbar />
       <div className="p-8 space-y-6">
         {/* HEADER */}

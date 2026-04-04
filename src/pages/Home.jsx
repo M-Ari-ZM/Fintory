@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 import { BadgePlus } from "lucide-react";
 import Navbar from "../components/Navbar";
 import TransactionModal from "../components/TransactionModal";
@@ -35,6 +36,10 @@ export default function Dashboard() {
 
   return (
     <div className="bg-gray-50">
+      <Helmet>
+        <title>Dashboard • Fintory</title>
+      </Helmet>
+
       <Navbar />
       <div className="p-8 space-y-6">
         {/* HEADER */}

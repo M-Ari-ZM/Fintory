@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import Navbar from "../components/Navbar";
 import AboutCard from "../components/AboutCard";
 import TeamCards from "../components/TeamCards";
@@ -7,6 +8,10 @@ import Footer from "../components/Footer";
 export default function Dashboard() {
   return (
     <div className="bg-gray-50">
+      <Helmet>
+        <title>Tentang Kami • Fintory</title>
+      </Helmet>
+
       <Navbar />
 
       <div className="p-8 py-20 space-y-20">
