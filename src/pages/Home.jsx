@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getTransaksi, addTransaksi } from "../services/api";
 import { Helmet } from "react-helmet";
 import { BadgePlus } from "lucide-react";
 import Navbar from "../components/Navbar";
@@ -18,13 +19,40 @@ export default function Dashboard() {
   const [editData, setEditData] = useState(null);
   const [filter, setFilter] = useState("month");
   const [showModal, setShowModal] = useState(false);
-  const { transactions, addTransaction, deleteTransaction, updateTransaction } =
-    useTransactions();
+  const {
+    transactions,
+    addTransaction,
+    deleteTransaction,
+    updateTransaction,
+    setInitialData,
+  } = useTransactions();
   const filteredTransactions = filterTransactions(transactions, filter);
   const { income, expense, balance } = calculateSummary(filteredTransactions);
   const chartData = generateExpenseChartData(filteredTransactions);
 
-  function handleSubmit(data) {
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const fetchData = async () => {
+    try {
+      const res = await getTransaksi();
+      setInitialData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  async function handleSubmit(data) {
+    try {
+      await addTransaksi(data);
+      fetchData();
+
+      setEditData(null);
+      setShowModal(false);
+    } catch (err) {
+      console.log(err);
+    }
+
     if (editData) {
       updateTransaction(data);
     } else {

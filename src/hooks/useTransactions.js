@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 
 export default function useTransactions() {
   const [transactions, setTransactions] = useState([]);
+  const setInitialData = (data) => {
+    setTransactions(data);
+  };
 
   useEffect(() => {
     const data = localStorage.getItem("transactions");
@@ -38,5 +41,6 @@ export default function useTransactions() {
     addTransaction,
     deleteTransaction,
     updateTransaction,
+    setInitialData,
   };
 }
