@@ -1,21 +1,31 @@
-export const generateExpenseChartData = (transactions) => {
-  const result = {};
+export function generateExpenseChartData(transactions) {
+  const raw = transactions
+    .filter((t) => t.type === "expense")
+    .reduce((acc, curr) => {
+      const existing = acc.find((i) => i.name === curr.description);
 
-  transactions.forEach((item) => {
-    if (item.type !== "expense") return;
+      if (existing) {
+        existing.value += curr.amount;
+      } else {
+        acc.push({ name: curr.description, value: curr.amount });
+      }
 
-    const date = new Date(item.date);
-    const month = date.toLocaleString("id-ID", { month: "short" });
+      return acc;
+    }, []);
 
-    if (!result[month]) {
-      result[month] = 0;
-    }
+  const sorted = raw.sort((a, b) => b.value - a.value);
 
-    result[month] += item.amount;
-  });
+  const topFiveExpense = sorted.slice(0, 5);
+  const others = sorted.slice(5);
 
-  return Object.keys(result).map((key) => ({
-    name: key,
-    value: result[key],
-  }));
-};
+  if (others.length > 0) {
+    const totalOthers = others.reduce((a, b) => a + b.value, 0);
+
+    topFiveExpense.push({
+      name: "Lainnya",
+      value: totalOthers,
+    });
+  }
+
+  return topFiveExpense;
+}

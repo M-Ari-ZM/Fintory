@@ -16,7 +16,14 @@ export default function TransactionModal({
       setType(editData.type);
       setAmount(editData.amount);
       setDesc(editData.description);
-      setDate(editData.date.slice(0, 10));
+
+      const dateObj = new Date(editData.date);
+      const localDate = new Date(
+        dateObj.getTime() - dateObj.getTimezoneOffset() * 60000,
+      )
+        .toISOString()
+        .slice(0, 10);
+      setDate(localDate);
     } else {
       setType("");
       setAmount("");

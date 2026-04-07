@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import Navbar from "../components/Navbar";
 import DashboardCards from "../components/DashboardCards";
@@ -16,13 +16,17 @@ import { cardsDataReport } from "../utils/cardsData";
 export default function Dashboard() {
   const [timeFilter, setTimeFilter] = useState("all");
   const [chartType, setChartType] = useState("bar");
-  const { transactions } = useTransactions();
+  const { transactions, fetchTransactions } = useTransactions();
   const filteredTransactionsByTime = filterByTime(transactions, timeFilter);
   const { income, expense, balance } = calculateSummary(
     filteredTransactionsByTime,
   );
   const monthlyData = generateMonthlyChartData(filteredTransactionsByTime);
   const expenseData = generateExpenseChartData(filteredTransactionsByTime);
+
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
 
   return (
     <div className="bg-gray-50">
