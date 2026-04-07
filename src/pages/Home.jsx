@@ -49,7 +49,7 @@ export default function Dashboard() {
   return (
     <div className="bg-gray-50">
       <Helmet>
-        <title>Dashboard • Fintory</title>
+        <title>Beranda • Fintory</title>
       </Helmet>
 
       <Navbar />
