@@ -39,7 +39,7 @@ Project ini menggunakan arsitektur **full-stack terpisah (separate repository)**
 
 ```bash
 git clone https://github.com/M-Ari-ZM/Frontend_Fintory.git
-cd fintory-frontend
+cd frontend_fintory
 ```
 
 ### 2. Install Dependencies
@@ -80,7 +80,7 @@ Silakan ikuti instruksi lengkap di repo backend:
 ### Ringkasan:
 
 ```bash
-cd fintory-backend
+cd backend_fintory
 npm install
 npm run start
 ```
