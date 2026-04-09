@@ -16,7 +16,7 @@ Ikuti langkah-langkah berikut untuk menjalankan project di lokal:
 
 ```bash
 git clone https://github.com/M-Ari-ZM/Frontend_Fintory.git
-cd fintory
+cd frontend_fintory
 ```
 
 ### 2. Install Dependencies
