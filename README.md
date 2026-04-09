@@ -2,7 +2,7 @@
 
 ## 📌 Deskripsi Proyek
 
-Fintory adalah aplikasi manajemen keuangan berbasis web yang membantu pengguna mencatat pemasukan dan pengeluaran serta memantau kondisi keuangan secara real-time.
+Fintory adalah aplikasi manajemen keuangan berbasis web yang membantu pengguna dalam mencatat, memantau, dan menganalisis pengeluaran serta pemasukan secara sederhana dan intuitif.
 
 Project ini menggunakan arsitektur **full-stack terpisah (separate repository)**:
 
