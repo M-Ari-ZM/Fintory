@@ -2,7 +2,7 @@
   "name": "fintory",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://m-ari-zm.github.io/Fintory",
+  "homepage": "https://m-ari-zm.github.io/Frontend_Fintory/",
   "type": "module",
   "overrides": {
     "brace-expansion": "^5.0.5"
