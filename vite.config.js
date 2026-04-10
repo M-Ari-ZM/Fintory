@@ -5,5 +5,6 @@ import tailwindcss from "@tailwindcss/vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: "/Frontend_Fintory/",
+  base:
+    process.env.VITE_DEPLOY_TARGET === "gh-pages" ? "/Frontend_Fintory/" : "/",
 });
