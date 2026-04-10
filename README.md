@@ -15,8 +15,8 @@ Ikuti langkah-langkah berikut untuk menjalankan project di lokal:
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/M-Ari-ZM/Fintory.git
-cd fintory
+git clone https://github.com/M-Ari-ZM/Frontend_Fintory.git
+cd frontend_fintory
 ```
 
 ### 2. Install Dependencies
@@ -73,7 +73,7 @@ npm run preview
 - React.js
 - Tailwind CSS
 - Vite
-- (Optional) Chart Library (Recharts / Chart.js)
+- Chart Library (Recharts)
 
 ---
 
