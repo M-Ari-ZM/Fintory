@@ -1,5 +1,5 @@
 import Hero from "../components/Header.jsx";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function App() {
   return (

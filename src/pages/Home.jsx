@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { BadgePlus } from "lucide-react";
 import Navbar from "../components/Navbar";
 import TransactionModal from "../components/TransactionModal";
