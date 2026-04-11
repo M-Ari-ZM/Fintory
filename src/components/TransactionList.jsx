@@ -1,11 +1,3 @@
-import {
-  Pencil,
-  Trash,
-  Search,
-  SlidersHorizontal,
-  ArrowUpWideNarrow,
-  RotateCcw,
-} from "lucide-react";
 import useLogicList from "../hooks/useLogicList";
 import List from "./ui/List";
 import SearchInput from "./ui/SearchInput";
